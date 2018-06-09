@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">WilySearcher</string>
+    <string name="hashtag_to_search">Hashtag to search</string>
 </resources>
