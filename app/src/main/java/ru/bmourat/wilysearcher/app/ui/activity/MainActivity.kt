@@ -10,6 +10,7 @@ import com.twitter.sdk.android.core.Result
 import com.twitter.sdk.android.core.TwitterCore
 import com.twitter.sdk.android.core.TwitterException
 import com.twitter.sdk.android.core.models.Search
+import kotlinx.android.synthetic.main.activity_main.*
 import ru.bmourat.wilysearcher.R
 import ru.bmourat.wilysearcher.app.mvp.presenter.TweetListPresenter
 import ru.bmourat.wilysearcher.app.mvp.view.TweetListView
@@ -25,4 +26,9 @@ class MainActivity : MvpAppCompatActivity(), TweetListView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
     }
+
+    override fun currentHashTag(): String {
+        return etCurrentTag.text.toString()
+    }
+
 }
