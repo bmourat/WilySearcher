@@ -12,7 +12,10 @@ class TweetListPresenter(
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
-        loadRecentTweetsUseCase.execute(viewState.currentHashTag(), true)
+        viewState.onFirstPresenterAttach()
     }
 
+    fun setInitialHashTag(hashTag: String) {
+        loadRecentTweetsUseCase.execute(hashTag, true)
+    }
 }
