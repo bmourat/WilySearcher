@@ -1,13 +1,16 @@
 package ru.bmourat.wilysearcher.data.tweet
 
 import com.twitter.sdk.android.core.models.Tweet
-import io.reactivex.Observable
+import io.reactivex.Single
+import ru.bmourat.wilysearcher.data.api.TwitterApi
 import ru.bmourat.wilysearcher.domain.repository.TweetsRepository
 
-class OnlineTweetsRepository: TweetsRepository {
+class OnlineTweetsRepository(
+        private val twitterApi: TwitterApi,
+        private val pageSize: Int): TweetsRepository {
 
-    override fun loadTweets(hashTag: String): Observable<List<Tweet>> {
-        return Observable.just(listOf())
+    override fun loadTweets(hashTag: String): Single<List<Tweet>> {
+        return twitterApi.loadTweets(hashTag, pageSize)
     }
 
 }
