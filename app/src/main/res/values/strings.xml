@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">WilySearcher</string>
     <string name="hashtag_to_search">Hashtag to search</string>
+    <string name="default_tag">#fifa2018</string>
 </resources>

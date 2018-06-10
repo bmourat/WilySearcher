@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_default"
         android:inputType="text"
+        android:text="@string/default_tag"
         android:hint="@string/hashtag_to_search"
         android:importantForAutofill="no"
         tools:ignore="UnusedAttribute"/>
