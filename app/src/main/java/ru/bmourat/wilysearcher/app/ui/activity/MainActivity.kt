@@ -11,11 +11,15 @@ import ru.bmourat.wilysearcher.app.di.activity.ActivityComponent
 import ru.bmourat.wilysearcher.app.mvp.presenter.TweetListPresenter
 import ru.bmourat.wilysearcher.app.mvp.view.TweetListView
 import ru.bmourat.wilysearcher.app.ui.adapter.TweetsAdapter
+import ru.bmourat.wilysearcher.app.util.Logger
 import ru.bmourat.wilysearcher.app.util.logTag
 import javax.inject.Inject
 import javax.inject.Provider
 
 class MainActivity : BaseActivity(), TweetListView {
+
+    @Inject
+    lateinit var logger: Logger
 
     @Inject
     lateinit var presenterProvider: Provider<TweetListPresenter>
