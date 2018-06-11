@@ -11,6 +11,7 @@ import ru.bmourat.wilysearcher.app.di.activity.ActivityComponent
 import ru.bmourat.wilysearcher.app.mvp.presenter.TweetListPresenter
 import ru.bmourat.wilysearcher.app.mvp.view.TweetListView
 import ru.bmourat.wilysearcher.app.ui.adapter.TweetsAdapter
+import ru.bmourat.wilysearcher.app.util.logTag
 import javax.inject.Inject
 import javax.inject.Provider
 
@@ -44,6 +45,10 @@ class MainActivity : BaseActivity(), TweetListView {
         tweetsAdapter.replaceTweets(tweets)
     }
 
+    // region Infrastructure
+
+    override fun componentTag(): String = logTag
+
     override fun inject(activityComponent: ActivityComponent) {
         activityComponent.inject(this)
     }
@@ -56,4 +61,6 @@ class MainActivity : BaseActivity(), TweetListView {
     fun providePresenter(): TweetListPresenter {
         return presenterProvider.get()
     }
+
+    // endregion
 }

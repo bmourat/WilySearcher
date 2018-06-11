@@ -12,7 +12,7 @@ class WilySearcherApplication: Application() {
 
     override fun onCreate() {
         super.onCreate()
-        appComponent = ComponentFactory.createApplicationComponent(this)
+        appComponent = ComponentFactory.applicationComponent(this)
         Twitter.initialize(this)
     }
 }

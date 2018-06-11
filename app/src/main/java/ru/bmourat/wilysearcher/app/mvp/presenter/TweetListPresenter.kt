@@ -4,11 +4,14 @@ import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import io.reactivex.rxkotlin.subscribeBy
 import ru.bmourat.wilysearcher.app.mvp.view.TweetListView
+import ru.bmourat.wilysearcher.app.util.Logger
+import ru.bmourat.wilysearcher.app.util.logTag
 import ru.bmourat.wilysearcher.domain.interactor.LoadInitialTweetsUseCase
 
 @InjectViewState
 class TweetListPresenter(
-        private val loadInitialTweetsUseCase: LoadInitialTweetsUseCase)
+        private val loadInitialTweetsUseCase: LoadInitialTweetsUseCase,
+        private val logger: Logger)
     : MvpPresenter<TweetListView>() {
 
     override fun onFirstViewAttach() {
@@ -21,7 +24,7 @@ class TweetListPresenter(
                 .execute(hashTag, true)
                 .subscribeBy(
                     onNext = { viewState.replaceTweets(it) },
-                    onError = {}
+                    onError = { logger.error(logTag,  "Error retrieving initial tweets", it) }
                 )
     }
 }

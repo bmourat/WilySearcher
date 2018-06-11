@@ -4,6 +4,7 @@ import dagger.Module
 import dagger.Provides
 import ru.bmourat.wilysearcher.app.mvp.presenter.TweetListPresenter
 import ru.bmourat.wilysearcher.app.ui.activity.BaseActivity
+import ru.bmourat.wilysearcher.app.util.Logger
 import ru.bmourat.wilysearcher.domain.interactor.LoadInitialTweetsUseCase
 import ru.bmourat.wilysearcher.domain.repository.TweetsRepository
 import javax.inject.Named
@@ -21,7 +22,7 @@ class ActivityModule(private val activity: BaseActivity) {
 
     @Provides
     @ActivityScope
-    fun provideTweetListPresenter(loadInitialTweetsUseCase: LoadInitialTweetsUseCase): TweetListPresenter =
-            TweetListPresenter(loadInitialTweetsUseCase)
+    fun provideTweetListPresenter(loadInitialTweetsUseCase: LoadInitialTweetsUseCase, logger: Logger): TweetListPresenter =
+            TweetListPresenter(loadInitialTweetsUseCase, logger)
 
 }

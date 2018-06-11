@@ -1,10 +1,13 @@
 package ru.bmourat.wilysearcher.app.di.app
 
 import android.content.Context
+import com.zhuinden.servicetree.ServiceTree
 import dagger.Module
 import dagger.Provides
 import ru.bmourat.wilysearcher.R
 import ru.bmourat.wilysearcher.app.common.WilySearcherApplication
+import ru.bmourat.wilysearcher.app.util.AndroidLogger
+import ru.bmourat.wilysearcher.app.util.Logger
 import ru.bmourat.wilysearcher.data.api.TwitterApi
 import ru.bmourat.wilysearcher.data.api.TwitterSdkApi
 import ru.bmourat.wilysearcher.data.tweet.LocalTweetsRepository
@@ -37,9 +40,12 @@ class AppModule(val app: WilySearcherApplication) {
     @Singleton
     fun provideTwitterApi(): TwitterApi = TwitterSdkApi()
 
-    /*
     @Provides
     @Singleton
-    fun provideLogger(): Logger = CapsuleLogger()
-    */
+    fun provideComponentStorage(): ServiceTree = ServiceTree()
+
+    @Provides
+    @Singleton
+    fun provideLogger(): Logger = AndroidLogger()
 }
+

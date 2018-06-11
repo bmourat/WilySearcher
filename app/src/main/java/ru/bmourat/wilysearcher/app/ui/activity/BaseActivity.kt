@@ -17,7 +17,10 @@ abstract class BaseActivity: MvpAppCompatActivity() {
     private var disposables: CompositeDisposable = CompositeDisposable()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        activityComponent = ComponentFactory.createActivityComponent(this, application as WilySearcherApplication)
+        activityComponent = ComponentFactory.activityComponent(
+                componentTag(),
+                this,
+                application as WilySearcherApplication)
         inject(activityComponent)
         super.onCreate(savedInstanceState)
     }
@@ -25,6 +28,11 @@ abstract class BaseActivity: MvpAppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         disposables.clear()
+        if (isFinishing) {
+            ComponentFactory.removeComponent(
+                    componentTag(),
+                    application as WilySearcherApplication)
+        }
     }
 
     fun disposeOnDestroy(disposable: Disposable) {
@@ -32,4 +40,5 @@ abstract class BaseActivity: MvpAppCompatActivity() {
     }
 
     protected abstract fun inject(activityComponent: ActivityComponent)
+    protected abstract fun componentTag(): String
 }

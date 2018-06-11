@@ -58,6 +58,9 @@ dependencies {
     implementation "com.arello-mobile:moxy-app-compat:$project.ext.moxyVersion"
     kapt "com.arello-mobile:moxy-compiler:$project.ext.moxyVersion"
 
+    // Service tree
+    implementation 'com.github.Zhuinden:service-tree:1.6.1'
+
     // Test dependencies
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
