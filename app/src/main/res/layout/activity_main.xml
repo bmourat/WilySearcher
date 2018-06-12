@@ -15,6 +15,7 @@
         android:inputType="text"
         android:text="@string/default_tag"
         android:hint="@string/hashtag_to_search"
+        android:imeOptions="actionGo"
         android:importantForAutofill="no"
         tools:ignore="UnusedAttribute"/>
 

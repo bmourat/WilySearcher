@@ -1,9 +1,11 @@
 package ru.bmourat.wilysearcher.app.ui.activity
 
+import android.content.Context
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.twitter.sdk.android.core.models.Tweet
@@ -18,6 +20,9 @@ import ru.bmourat.wilysearcher.app.common.logger.logTag
 import ru.bmourat.wilysearcher.app.ui.util.EndlessRecyclerViewScrollListener
 import javax.inject.Inject
 import javax.inject.Provider
+import android.content.Context.INPUT_METHOD_SERVICE
+import android.view.inputmethod.InputMethodManager
+
 
 class MainActivity : BaseActivity(), TweetListView {
 
@@ -43,15 +48,25 @@ class MainActivity : BaseActivity(), TweetListView {
         rvTweets.layoutManager = layoutManager
         tweetsAdapter = TweetsAdapter()
         rvTweets.adapter = tweetsAdapter
-        rvTweets.addOnScrollListener(object: EndlessRecyclerViewScrollListener(layoutManager){
+        rvTweets.addOnScrollListener(object : EndlessRecyclerViewScrollListener(layoutManager) {
             override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView?) {
                 logger.verbose(logTag, "Loading next page.")
                 presenter.loadNextTweets()
             }
         })
         srlRefresher.setOnRefreshListener {
-            logger.verbose(logTag,  "Refreshing tweets.")
+            logger.verbose(logTag, "Refreshing tweets.")
             presenter.refreshTweets()
+        }
+        etCurrentTag.setOnEditorActionListener { view, actionId, _ ->
+            when (actionId) {
+                EditorInfo.IME_ACTION_GO -> {
+                    presenter.setHashTag(view.text.toString())
+                    hideKeyboard(view)
+                    true
+                }
+                else -> false
+            }
         }
     }
 
@@ -82,6 +97,11 @@ class MainActivity : BaseActivity(), TweetListView {
 
     override fun showLoading(show: Boolean) {
         pbLoadingProgress.visibility = if (show) View.VISIBLE else View.GONE
+    }
+
+    private fun hideKeyboard(view: View) {
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
     override fun onRefreshFinished() {

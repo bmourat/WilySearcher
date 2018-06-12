@@ -31,6 +31,7 @@ class TweetListPresenter(
 
     fun setHashTag(hashTag: String) {
         currentHashTag = hashTag
+        replaceTweets(listOf())
         disposeOnDestroy(
             loadInitialTweetsUseCase
                 .execute(hashTag, true)
