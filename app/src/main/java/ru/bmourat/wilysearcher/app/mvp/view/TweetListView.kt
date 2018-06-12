@@ -17,4 +17,6 @@ interface TweetListView: MvpView{
     fun replaceTweets(tweets:List<Tweet>)
 
     fun insertTweets(tweets: List<Tweet>)
+
+    fun showLoading(show: Boolean)
 }

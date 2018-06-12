@@ -34,6 +34,8 @@ class TweetListPresenter(
         disposeOnDestroy(
             loadInitialTweetsUseCase
                 .execute(hashTag, true)
+                .doOnSubscribe{ viewState.showLoading(true) }
+                .doOnComplete{ viewState.showLoading(false) }
                 .subscribeBy(
                     onNext = { replaceTweets(it) },
                     onError = { logger.error(logTag,  "Error retrieving initial tweets", it) }

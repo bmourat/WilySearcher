@@ -3,6 +3,7 @@ package ru.bmourat.wilysearcher.app.ui.activity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.View
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.twitter.sdk.android.core.models.Tweet
@@ -77,6 +78,10 @@ class MainActivity : BaseActivity(), TweetListView {
 
     override fun onFirstPresenterAttach() {
         presenter.setHashTag(etCurrentTag.text.toString())
+    }
+
+    override fun showLoading(show: Boolean) {
+        pbLoadingProgress.visibility = if (show) View.VISIBLE else View.GONE
     }
 
     override fun onRefreshFinished() {
