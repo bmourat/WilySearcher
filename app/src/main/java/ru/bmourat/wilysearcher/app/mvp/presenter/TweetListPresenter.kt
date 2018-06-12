@@ -7,10 +7,14 @@ import ru.bmourat.wilysearcher.app.mvp.view.TweetListView
 import ru.bmourat.wilysearcher.app.util.Logger
 import ru.bmourat.wilysearcher.app.util.logTag
 import ru.bmourat.wilysearcher.domain.interactor.LoadInitialTweetsUseCase
+import ru.bmourat.wilysearcher.domain.interactor.LoadNextPageUseCase
+import ru.bmourat.wilysearcher.domain.interactor.SwipeToRefreshUseCase
 
 @InjectViewState
 class TweetListPresenter(
         private val loadInitialTweetsUseCase: LoadInitialTweetsUseCase,
+        private val loadNextPageUseCase: LoadNextPageUseCase,
+        private val swipeToRefreshUseCase: SwipeToRefreshUseCase,
         private val logger: Logger)
     : MvpPresenter<TweetListView>() {
 

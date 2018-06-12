@@ -9,3 +9,7 @@ interface SingleUseCase<T> {
 interface SingleUseCaseWithParameter<in P, R> {
     fun execute(parameter: P): Single<R>
 }
+
+interface SingleUseCaseWithParameters<in P, in P1, R> {
+    fun execute(parameter: P, parameter1: P1): Single<R>
+}

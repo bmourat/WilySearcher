@@ -6,7 +6,7 @@ import ru.bmourat.wilysearcher.domain.repository.TweetsRepository
 
 class LocalTweetsRepository: TweetsRepository {
 
-    override fun loadTweets(hashTag: String): Single<List<Tweet>> {
+    override fun loadTweets(hashTag: String, maxId: Long?, sinceId: Long?): Single<List<Tweet>> {
         return Single.just(listOf())
     }
 
