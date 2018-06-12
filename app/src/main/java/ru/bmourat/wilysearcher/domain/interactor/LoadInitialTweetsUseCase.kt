@@ -15,7 +15,10 @@ class LoadInitialTweetsUseCase(
         if (includeCache) {
             return Observable
                     .concat(localRepository.loadTweets(hashTag).toObservable(),
-                            onlineRepository.loadTweets(hashTag).toObservable())
+                            onlineRepository
+                                .loadTweets(hashTag)
+                                .doAfterSuccess{ localRepository.saveTweets(hashTag, it) }
+                                .toObservable())
                     .observeOn(AndroidSchedulers.mainThread())
         }
         return onlineRepository.loadTweets(hashTag).toObservable().observeOn(AndroidSchedulers.mainThread())

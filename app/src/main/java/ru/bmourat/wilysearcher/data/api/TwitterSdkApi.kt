@@ -21,7 +21,6 @@ class TwitterSdkApi(private val logger: Logger): TwitterApi {
         return Single.create { emitter ->
             logger.verbose(logTag,  "Sending request to ${searchCall.request().url()}")
             logger.verbose(logTag, "Headers: ${searchCall.request().headers()}")
-            logger.verbose(logTag, "Body: ${searchCall.request().body()}")
 
             searchCall.enqueue(object: Callback<Search>(){
 

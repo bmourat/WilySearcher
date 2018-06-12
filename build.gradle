@@ -35,6 +35,7 @@ allprojects {
         daggerVersion = '2.14.1'
         moxyVersion = '1.5.3'
         roomVersion = '1.1.0'
+        serviceTreeVersion = '1.6.1'
     }
 }
 

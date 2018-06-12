@@ -29,7 +29,7 @@ class TweetListPresenter(
         viewState.onFirstPresenterAttach()
     }
 
-    fun setInitialHashTag(hashTag: String) {
+    fun setHashTag(hashTag: String) {
         currentHashTag = hashTag
         disposeOnDestroy(
             loadInitialTweetsUseCase

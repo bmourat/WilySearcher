@@ -76,7 +76,7 @@ class MainActivity : BaseActivity(), TweetListView {
     }
 
     override fun onFirstPresenterAttach() {
-        presenter.setInitialHashTag(etCurrentTag.text.toString())
+        presenter.setHashTag(etCurrentTag.text.toString())
     }
 
     override fun onRefreshFinished() {

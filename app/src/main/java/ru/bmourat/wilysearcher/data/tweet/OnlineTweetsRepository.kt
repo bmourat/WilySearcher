@@ -14,4 +14,5 @@ class OnlineTweetsRepository(
         return twitterApi.loadTweets(hashTag, pagingOptions.pageSize, maxId = maxId, sinceId = sinceId)
     }
 
+    override fun saveTweets(hashTag: String, tweets: List<Tweet>) { }
 }
