@@ -1,4 +1,4 @@
-package ru.bmourat.wilysearcher.app.util
+package ru.bmourat.wilysearcher.app.common.logger
 
 val Any.logTag: String
     get() {

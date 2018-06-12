@@ -2,13 +2,15 @@ package ru.bmourat.wilysearcher.app.di.activity
 
 import dagger.Module
 import dagger.Provides
+import ru.bmourat.wilysearcher.R
 import ru.bmourat.wilysearcher.app.mvp.presenter.TweetListPresenter
 import ru.bmourat.wilysearcher.app.ui.activity.BaseActivity
-import ru.bmourat.wilysearcher.app.util.Logger
+import ru.bmourat.wilysearcher.app.common.logger.Logger
 import ru.bmourat.wilysearcher.domain.interactor.LoadInitialTweetsUseCase
 import ru.bmourat.wilysearcher.domain.interactor.LoadNextPageUseCase
 import ru.bmourat.wilysearcher.domain.interactor.SwipeToRefreshUseCase
 import ru.bmourat.wilysearcher.domain.repository.TweetsRepository
+import ru.bmourat.wilysearcher.domain.util.PagingOptions
 import javax.inject.Named
 
 @Module
@@ -38,7 +40,11 @@ class ActivityModule(private val activity: BaseActivity) {
     fun provideTweetListPresenter(loadInitialTweetsUseCase: LoadInitialTweetsUseCase,
                                   loadNextPageUseCase: LoadNextPageUseCase,
                                   swipeToRefreshUseCase: SwipeToRefreshUseCase,
-                                  logger: Logger): TweetListPresenter =
-            TweetListPresenter(loadInitialTweetsUseCase, loadNextPageUseCase, swipeToRefreshUseCase, logger)
+                                  logger: Logger): TweetListPresenter {
 
+        val pageSize = activity.resources.getInteger(R.integer.default_page_size)
+        return TweetListPresenter(loadInitialTweetsUseCase, loadNextPageUseCase, swipeToRefreshUseCase,
+                PagingOptions(pageSize), logger)
+
+    }
 }

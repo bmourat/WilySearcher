@@ -8,11 +8,11 @@ import ru.bmourat.wilysearcher.domain.repository.TweetsRepository
 
 class LoadNextPageUseCase(
         private val onlineRepository: TweetsRepository)
-    : SingleUseCaseWithParameters<String, Long, List<Tweet>> {
+    : SingleUseCaseWithParameters<String, Tweet?, List<Tweet>> {
 
-    override fun execute(hashTag: String, maxId: Long): Single<List<Tweet>> {
+    override fun execute(hashTag: String, oldestTweet: Tweet?): Single<List<Tweet>> {
         return onlineRepository
-                .loadTweets(hashTag, maxId)
+                .loadTweets(hashTag, oldestTweet?.id)
                 .observeOn(AndroidSchedulers.mainThread())
     }
 }

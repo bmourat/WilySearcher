@@ -8,11 +8,11 @@ import ru.bmourat.wilysearcher.domain.repository.TweetsRepository
 
 class SwipeToRefreshUseCase(
         private val onlineRepository: TweetsRepository)
-    : SingleUseCaseWithParameters<String, Long, List<Tweet>> {
+    : SingleUseCaseWithParameters<String, Tweet?, List<Tweet>> {
 
-    override fun execute(hashTag: String, sinceId: Long): Single<List<Tweet>> {
+    override fun execute(hashTag: String, latestTweet: Tweet?): Single<List<Tweet>> {
         return onlineRepository
-                .loadTweets(hashTag, sinceId = sinceId)
+                .loadTweets(hashTag, sinceId = latestTweet?.id)
                 .observeOn(AndroidSchedulers.mainThread())
     }
 }

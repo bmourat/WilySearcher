@@ -5,8 +5,8 @@ import com.twitter.sdk.android.core.models.Search
 import com.twitter.sdk.android.core.models.Tweet
 import com.twitter.sdk.android.core.services.SearchService
 import io.reactivex.Single
-import ru.bmourat.wilysearcher.app.util.Logger
-import ru.bmourat.wilysearcher.app.util.logTag
+import ru.bmourat.wilysearcher.app.common.logger.Logger
+import ru.bmourat.wilysearcher.app.common.logger.logTag
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 

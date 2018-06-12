@@ -6,13 +6,14 @@ import dagger.Module
 import dagger.Provides
 import ru.bmourat.wilysearcher.R
 import ru.bmourat.wilysearcher.app.common.WilySearcherApplication
-import ru.bmourat.wilysearcher.app.util.AndroidLogger
-import ru.bmourat.wilysearcher.app.util.Logger
+import ru.bmourat.wilysearcher.app.common.logger.AndroidLogger
+import ru.bmourat.wilysearcher.app.common.logger.Logger
 import ru.bmourat.wilysearcher.data.api.TwitterApi
 import ru.bmourat.wilysearcher.data.api.TwitterSdkApi
 import ru.bmourat.wilysearcher.data.tweet.LocalTweetsRepository
 import ru.bmourat.wilysearcher.data.tweet.OnlineTweetsRepository
 import ru.bmourat.wilysearcher.domain.repository.TweetsRepository
+import ru.bmourat.wilysearcher.domain.util.PagingOptions
 import javax.inject.Named
 import javax.inject.Singleton
 
@@ -33,12 +34,12 @@ class AppModule(val app: WilySearcherApplication) {
     @Named("Online")
     fun provideOnlineTweetsRepository(twitterApi: TwitterApi): TweetsRepository {
         val pageSize = app.resources.getInteger(R.integer.default_page_size)
-        return OnlineTweetsRepository(twitterApi, pageSize)
+        return OnlineTweetsRepository(twitterApi, PagingOptions(pageSize))
     }
 
     @Provides
     @Singleton
-    fun provideTwitterApi(): TwitterApi = TwitterSdkApi()
+    fun provideTwitterApi(logger: Logger): TwitterApi = TwitterSdkApi(logger)
 
     @Provides
     @Singleton

@@ -13,14 +13,20 @@ class TweetsAdapter: RecyclerView.Adapter<TweetsAdapter.TweetHolder>() {
 
     var tweets = mutableListOf<Tweet>()
 
+
+    fun addTweets(tweetList: List<Tweet>) {
+        tweets.addAll(tweetList)
+        notifyDataSetChanged()
+    }
+
     fun replaceTweets(tweetList: List<Tweet>) {
         tweets = tweetList.toMutableList()
         notifyDataSetChanged()
     }
 
-    fun addTweets(tweetList: List<Tweet>) {
-        tweets.addAll(tweetList)
-        notifyDataSetChanged()
+    fun insertTweets(tweetList: List<Tweet>) {
+        tweets.addAll(0, tweetList)
+        notifyItemRangeInserted(0, tweetList.size)
     }
 
     override fun getItemCount(): Int = tweets.size

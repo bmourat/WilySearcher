@@ -10,7 +10,11 @@ interface TweetListView: MvpView{
     @StateStrategyType(SkipStrategy::class)
     fun onFirstPresenterAttach()
 
+    fun onRefreshFinished()
+
     fun addTweets(tweets:List<Tweet>)
 
     fun replaceTweets(tweets:List<Tweet>)
+
+    fun insertTweets(tweets: List<Tweet>)
 }
