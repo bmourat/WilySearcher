@@ -8,14 +8,14 @@ import ru.bmourat.wilysearcher.app.common.logger.Logger
 import ru.bmourat.wilysearcher.app.common.logger.logTag
 import ru.bmourat.wilysearcher.domain.interactor.LoadInitialTweetsUseCase
 import ru.bmourat.wilysearcher.domain.interactor.LoadNextPageUseCase
-import ru.bmourat.wilysearcher.domain.interactor.SwipeToRefreshUseCase
+import ru.bmourat.wilysearcher.domain.interactor.LoadMostRecentTweetsUseCase
 import ru.bmourat.wilysearcher.domain.util.PagingOptions
 
 @InjectViewState
 class TweetListPresenter(
         private val loadInitialTweetsUseCase: LoadInitialTweetsUseCase,
         private val loadNextPageUseCase: LoadNextPageUseCase,
-        private val swipeToRefreshUseCase: SwipeToRefreshUseCase,
+        private val loadMostRecentTweetsUseCase: LoadMostRecentTweetsUseCase,
         private val pagingOptions: PagingOptions,
         private val logger: Logger)
     : BasePresenter<TweetListView>() {
@@ -49,7 +49,7 @@ class TweetListPresenter(
         currentHashTag?.let {
             loading = true
             disposeOnDestroy(
-                swipeToRefreshUseCase
+                loadMostRecentTweetsUseCase
                     .execute(it, tweets.maxBy { it.id })
                     .doAfterTerminate {
                         loading = false

@@ -9,7 +9,7 @@ import ru.bmourat.wilysearcher.app.ui.activity.BaseActivity
 import ru.bmourat.wilysearcher.app.common.logger.Logger
 import ru.bmourat.wilysearcher.domain.interactor.LoadInitialTweetsUseCase
 import ru.bmourat.wilysearcher.domain.interactor.LoadNextPageUseCase
-import ru.bmourat.wilysearcher.domain.interactor.SwipeToRefreshUseCase
+import ru.bmourat.wilysearcher.domain.interactor.LoadMostRecentTweetsUseCase
 import ru.bmourat.wilysearcher.domain.repository.TweetsRepository
 import ru.bmourat.wilysearcher.domain.util.PagingOptions
 import javax.inject.Named
@@ -33,18 +33,18 @@ class ActivityModule(private val activity: BaseActivity) {
     @Provides
     @ActivityScope
     fun provideSwipeToRefreshUseCase(
-            @Named("Online") onlineTweetsRepository: TweetsRepository): SwipeToRefreshUseCase =
-            SwipeToRefreshUseCase(onlineTweetsRepository, AndroidSchedulers.mainThread())
+            @Named("Online") onlineTweetsRepository: TweetsRepository): LoadMostRecentTweetsUseCase =
+            LoadMostRecentTweetsUseCase(onlineTweetsRepository, AndroidSchedulers.mainThread())
 
     @Provides
     @ActivityScope
     fun provideTweetListPresenter(loadInitialTweetsUseCase: LoadInitialTweetsUseCase,
                                   loadNextPageUseCase: LoadNextPageUseCase,
-                                  swipeToRefreshUseCase: SwipeToRefreshUseCase,
+                                  loadMostRecentTweetsUseCase: LoadMostRecentTweetsUseCase,
                                   logger: Logger): TweetListPresenter {
 
         val pageSize = activity.resources.getInteger(R.integer.default_page_size)
-        return TweetListPresenter(loadInitialTweetsUseCase, loadNextPageUseCase, swipeToRefreshUseCase,
+        return TweetListPresenter(loadInitialTweetsUseCase, loadNextPageUseCase, loadMostRecentTweetsUseCase,
                 PagingOptions(pageSize), logger)
 
     }

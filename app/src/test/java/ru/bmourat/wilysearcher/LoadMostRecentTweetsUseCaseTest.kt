@@ -6,18 +6,18 @@ import org.junit.Before
 import org.junit.Test
 import org.mockito.Mockito
 import org.mockito.Mockito.*
-import ru.bmourat.wilysearcher.domain.interactor.SwipeToRefreshUseCase
+import ru.bmourat.wilysearcher.domain.interactor.LoadMostRecentTweetsUseCase
 import ru.bmourat.wilysearcher.domain.repository.TweetsRepository
 
-class SwipeToRefreshUseCaseTest {
+class LoadMostRecentTweetsUseCaseTest {
 
-    private lateinit var sut: SwipeToRefreshUseCase
+    private lateinit var sut: LoadMostRecentTweetsUseCase
     private lateinit var onlineRepository: TweetsRepository
 
     @Before
     fun setUp() {
         onlineRepository = Mockito.mock(TweetsRepository::class.java)
-        sut = SwipeToRefreshUseCase(onlineRepository, Schedulers.trampoline())
+        sut = LoadMostRecentTweetsUseCase(onlineRepository, Schedulers.trampoline())
     }
 
 

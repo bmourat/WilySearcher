@@ -8,7 +8,7 @@ import ru.bmourat.wilysearcher.domain.interactor.type.SingleUseCaseWithParameter
 import ru.bmourat.wilysearcher.domain.repository.TweetsRepository
 
 // Class is marked open for testing
-open class SwipeToRefreshUseCase(
+open class LoadMostRecentTweetsUseCase(
         private val onlineRepository: TweetsRepository,
         private val observerScheduler: Scheduler)
     : SingleUseCaseWithParameters<String, Tweet?, List<Tweet>> {
