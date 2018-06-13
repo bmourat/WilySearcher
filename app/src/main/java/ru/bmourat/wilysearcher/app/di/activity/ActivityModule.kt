@@ -2,6 +2,7 @@ package ru.bmourat.wilysearcher.app.di.activity
 
 import dagger.Module
 import dagger.Provides
+import io.reactivex.android.schedulers.AndroidSchedulers
 import ru.bmourat.wilysearcher.R
 import ru.bmourat.wilysearcher.app.mvp.presenter.TweetListPresenter
 import ru.bmourat.wilysearcher.app.ui.activity.BaseActivity
@@ -21,19 +22,19 @@ class ActivityModule(private val activity: BaseActivity) {
     fun provideLoadRecentTweetsUseCase(
             @Named("Online") onlineTweetsRepository: TweetsRepository,
             @Named("Local") localTweetsRepository: TweetsRepository): LoadInitialTweetsUseCase =
-            LoadInitialTweetsUseCase(onlineTweetsRepository, localTweetsRepository)
+            LoadInitialTweetsUseCase(onlineTweetsRepository, localTweetsRepository, AndroidSchedulers.mainThread())
 
     @Provides
     @ActivityScope
     fun provideLoadNextPageUseCase(
             @Named("Online") onlineTweetsRepository: TweetsRepository): LoadNextPageUseCase =
-            LoadNextPageUseCase(onlineTweetsRepository)
+            LoadNextPageUseCase(onlineTweetsRepository, AndroidSchedulers.mainThread())
 
     @Provides
     @ActivityScope
     fun provideSwipeToRefreshUseCase(
             @Named("Online") onlineTweetsRepository: TweetsRepository): SwipeToRefreshUseCase =
-            SwipeToRefreshUseCase(onlineTweetsRepository)
+            SwipeToRefreshUseCase(onlineTweetsRepository, AndroidSchedulers.mainThread())
 
     @Provides
     @ActivityScope

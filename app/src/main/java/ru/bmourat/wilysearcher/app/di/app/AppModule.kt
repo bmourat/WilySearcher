@@ -5,6 +5,8 @@ import android.content.Context
 import com.zhuinden.servicetree.ServiceTree
 import dagger.Module
 import dagger.Provides
+import io.reactivex.Scheduler
+import io.reactivex.schedulers.Schedulers
 import ru.bmourat.wilysearcher.R
 import ru.bmourat.wilysearcher.app.common.WilySearcherApplication
 import ru.bmourat.wilysearcher.app.common.logger.AndroidLogger
@@ -12,6 +14,8 @@ import ru.bmourat.wilysearcher.app.common.logger.Logger
 import ru.bmourat.wilysearcher.data.api.TwitterApi
 import ru.bmourat.wilysearcher.data.api.TwitterSdkApi
 import ru.bmourat.wilysearcher.data.database.AppDatabase
+import ru.bmourat.wilysearcher.data.database.GsonTweetMapper
+import ru.bmourat.wilysearcher.data.database.TweetMapper
 import ru.bmourat.wilysearcher.data.tweet.LocalTweetsRepository
 import ru.bmourat.wilysearcher.data.tweet.OnlineTweetsRepository
 import ru.bmourat.wilysearcher.data.tweet.TweetDao
@@ -31,8 +35,8 @@ class AppModule(val app: WilySearcherApplication) {
     @Provides
     @Singleton
     @Named("Local")
-    fun provideLocalTweetsRepository(tweetDao: TweetDao, logger: Logger): TweetsRepository =
-            LocalTweetsRepository(tweetDao, logger)
+    fun provideLocalTweetsRepository(tweetDao: TweetDao, tweetMapper: TweetMapper, logger: Logger): TweetsRepository =
+            LocalTweetsRepository(tweetDao, tweetMapper, logger, Schedulers.io())
 
     @Provides
     @Singleton
@@ -41,6 +45,10 @@ class AppModule(val app: WilySearcherApplication) {
         val pageSize = app.resources.getInteger(R.integer.default_page_size)
         return OnlineTweetsRepository(twitterApi, PagingOptions(pageSize))
     }
+
+    @Provides
+    @Singleton
+    fun provideTweetMapper(): TweetMapper = GsonTweetMapper()
 
     @Provides
     @Singleton
